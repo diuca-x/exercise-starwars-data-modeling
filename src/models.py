@@ -28,5 +28,48 @@ class Address(Base):
     def to_dict(self):
         return {}
 
+class User(Base):
+    __tablename__ = "user"
+    id = Column(Integer, primary_key=True)
+    nombre = Column(String(250), nullable=False)
+    email = Column(String(250), nullable=False)
+    password = Column(String(250), nullable=False)
+    fav_char = Column(Integer, ForeignKey("FavoritesChar.id")) #many to one
+    fav_planet = Column(Integer, ForeignKey("FavoritesPlanet.id"))#many to one
+
+class FavoritesChar(Base):
+    __tablename__ = "favoriteschar"
+
+    id = Column(Integer, primary_key=True)
+    char_id = Column(Integer, ForeignKey("Character.id")) #many to one
+
+class favoritesPlanet(Base):
+    __tablename__ = "favoritesPlanet"
+
+    id = Column(Integer, primary_key=True)
+    planet_id = Column(Integer, ForeignKey("Planet.id")) #many to one
+
+class Character(Base):
+    __tablename__ = "character"
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String(250),nullable=False)
+    birth_year = Column(Integer)
+    gender = Column(String(25))
+    height = Column(Integer)
+    skin_color = Column(String(25))
+
+class Planet(Base):
+    __tablename__ = "planet"
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String(250),nullable=False)
+    climate = Column(String(25))
+    gravity = Column(Integer)
+    population = Column(Integer)
+    terrain = Column(String(25))
+
+
+
 ## Draw from SQLAlchemy base
 render_er(Base, 'diagram.png')
