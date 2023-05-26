@@ -34,21 +34,22 @@ class User(Base):
     nombre = Column(String(250), nullable=False)
     email = Column(String(250), nullable=False)
     password = Column(String(250), nullable=False)
-    fav_char = Column(Integer, ForeignKey("FavoritesChar.id")) #many to one
-    fav_planet = Column(Integer, ForeignKey("FavoritesPlanet.id"))#many to one
+    
 
 class FavoritesChar(Base):
     __tablename__ = "favoriteschar"
 
     id = Column(Integer, primary_key=True)
     char_id = Column(Integer, ForeignKey("Character.id")) #many to one
+    user_id = Column(Integer, ForeignKey("User.id")) #many to one
 
 class favoritesPlanet(Base):
     __tablename__ = "favoritesPlanet"
 
     id = Column(Integer, primary_key=True)
     planet_id = Column(Integer, ForeignKey("Planet.id")) #many to one
-
+    user_id = Column(Integer, ForeignKey("User.id")) #many to one
+    
 class Character(Base):
     __tablename__ = "character"
 
